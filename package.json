@@ -4,8 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "jest",
-    "start": "node app.js"  
+    "test": "jest app.spec.js",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
