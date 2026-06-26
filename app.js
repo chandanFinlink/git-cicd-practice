@@ -1,26 +1,37 @@
 const http = require('http');
 
-// Core business logic remains pure and easy to test
 function reverseString(str) {
     return str.split('').reverse().join('');
 }
 
 const server = http.createServer((req, res) => {
-    // Parse the incoming URL completely (using a dummy base URL for relative paths)
-    const parsedUrl = new URL(req.url, `http://${req.headers.host}`);
-    const pathname = parsedUrl.pathname;
-
+    // Isolate the base path from any appended query parameters
+    const [pathname, queryString] = req.url.split('?');
+    
     const welcomeHeader = process.env.CUSTOM_HEADER || "🚀 Enterprise String Reversal API 🚀";
 
     // Route 1: System Health Check Status
     if (pathname === '/status') {
         res.writeHead(200, { 'Content-Type': 'application/json' });
-        return res.end(JSON.stringify({ status: "healthy", uptime: process.uptime() }));
+        return res.end(JSON.stringify({ status: "healthy", uptime: Math.floor(process.uptime()) }));
     }
 
     // Route 2: The Core Reversal API endpoint
     if (pathname === '/reverse') {
-        const textToReverse = parsedUrl.searchParams.get('text') || "hello";
+        let textToReverse = "hello";
+        
+        // Safely extract the 'text' value out of the query parameter string manually
+        if (queryString) {
+            const params = queryString.split('&');
+            for (let param of params) {
+                const [key, value] = param.split('=');
+                if (key === 'text' && value) {
+                    textToReverse = decodeURIComponent(value);
+                    break;
+                }
+            }
+        }
+
         const reversed = reverseString(textToReverse);
 
         res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
