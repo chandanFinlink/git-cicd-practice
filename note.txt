@@ -1,0 +1,39 @@
+1. The High-Level Overview Question
+Interview Question: "Can you explain what CI/CD is and how you've implemented it in a project?"
+
+How to Answer:
+
+CI (Continuous Integration) is the practice of automatically building and testing your code every time a team member pushes changes to the repository, ensuring bugs are caught early.
+
+CD (Continuous Delivery/Deployment) takes that successfully validated code and automatically pushes it live to production environments.
+
+Your Real-World Example: "In my recent project, I built a string reversal Node.js web server. I set up a complete CI/CD pipeline using GitHub Actions for CI and Render for CD. Every time I push code to the main branch, GitHub Actions automatically spins up an Ubuntu cloud runner, sets up Node.js, and executes an automated test script. If the tests pass, Render triggers a webhook to automatically pull the new code and deploy it live seamlessly. If the test fails, the build is blocked, preventing broken code from hitting production."
+
+2. The Failure Handling Question (The "Red Build")
+Interview Question: "What happens in your pipeline if a developer introduces a bug or a broken test?"
+
+How to Answer:
+
+"The pipeline acts as an automated quality gatekeeper. In my test script, I explicitly handle failure paths using Node's standard process.exit(1).
+
+When GitHub Actions executes the test command and detects a non-zero exit code (like 1), it interprets it as a fatal build failure.
+
+The workflow halts instantly, marks the commit with a red error cross, and alerts the team. Because Render is configured to only deploy passing code, the broken code is safely blocked from reaching the live server."
+
+3. The Architecture & Environment Question
+Interview Question: "Why do we run tests on an external platform like GitHub Actions instead of just relying on developers running them locally?"
+
+How to Answer:
+
+"It works on my machine" syndrome: A developer's local laptop might have specific environment variables, node versions, or local files that mask a bug.
+
+The Single Source of Truth: GitHub Actions provides a completely isolated, clean, reproducible cloud environment (ubuntu-latest) every single time. Testing in a fresh cloud environment guarantees that if the code passes there, it is mathematically stable enough to run on production cloud servers like Render or AWS.
+
+4. Key Quick-Fire Questions
+Interview Question: "What is the purpose of the .github/workflows/ci.yml file?"
+
+Answer: "It is the configuration file written in YAML that orchestrates the automation. It defines the triggers (like on: push), the environment (runs-on: ubuntu-latest), and the sequential steps needed to pull code and execute the test suite."
+
+Interview Question: "Why did you use process.env.PORT || 3000 in your web server code?"
+
+Answer: "For environment flexibility. Locally, I use port 3000 for development. However, cloud platforms like Render dynamically assign a port to applications at runtime using an environment variable. Using process.env.PORT ensures the application binds to whatever port the hosting environment requires without crashing."
