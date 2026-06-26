@@ -37,3 +37,19 @@ Answer: "It is the configuration file written in YAML that orchestrates the auto
 Interview Question: "Why did you use process.env.PORT || 3000 in your web server code?"
 
 Answer: "For environment flexibility. Locally, I use port 3000 for development. However, cloud platforms like Render dynamically assign a port to applications at runtime using an environment variable. Using process.env.PORT ensures the application binds to whatever port the hosting environment requires without crashing."
+
+
+
+1. The Git Workflow Question
+Interview Question: "How does your team collaborate on a codebase? Do you push directly to the main branch?"
+
+How to Answer: "No, pushing directly to main is restricted to protect production stability. We use a Feature Branching workflow. When working on a new feature, like adding a timestamp to our application, I create a localized branch using git checkout -b <branch-name>. I write code and push that branch to GitHub, which automatically kicks off our CI checks inside an isolated Pull Request (PR). Once code reviews pass and the CI build turns green, the PR is merged into main, which then safely triggers our automated CD pipeline to update the live environment."
+
+2. The Real-World Debugging Question (Crucial Interview Question!)
+Interview Question: "Tell me about a time your deployment failed or your app crashed in production. How did you debug it?"
+
+How to Answer: *"In a recent project, after merging a Pull Request containing a web output change into the main branch, the application failed to deploy on Render and threw an Exit Status 1.
+
+Instead of panicking, I checked the platform’s deployment logs to see where the startup sequence failed. I realized there was a crash during runtime configuration.
+
+To fix it, I reverted back to my local workspace, validated the core server script logic, fixed the file syntax, and pushed the patch back to main. The CI/CD pipeline picked up the fix, validated it, and successfully re-deployed the container with zero downtime for the users."*

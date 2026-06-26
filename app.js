@@ -8,9 +8,11 @@ const server = http.createServer((req, res) => {
     const textToReverse = req.url.slice(1) || "hello";
     const reversed = reverseString(textToReverse);
 
+    const welcomeHeader = process.env.CUSTOM_HEADER || "🚀 Standard String Reversal Service 🚀";
+
     res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
     res.end(`
-        <h1>🚀 Chandan's Advanced String Reversal Service 🚀</h1>
+        <h1>${welcomeHeader}</h1>
         <p>Original: <b>${textToReverse}</b></p>
         <p>Reversed: <b>${reversed}</b></p>
         <p>Current Time: <b>${new Date().toLocaleString()}</b></p>
