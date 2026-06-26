@@ -53,3 +53,14 @@ How to Answer: *"In a recent project, after merging a Pull Request containing a 
 Instead of panicking, I checked the platform’s deployment logs to see where the startup sequence failed. I realized there was a crash during runtime configuration.
 
 To fix it, I reverted back to my local workspace, validated the core server script logic, fixed the file syntax, and pushed the patch back to main. The CI/CD pipeline picked up the fix, validated it, and successfully re-deployed the container with zero downtime for the users."*
+
+
+. The Architectural Decoupling Question
+Interview Question: "Why did you separate app.js and server.js into two different files?"
+
+How to Answer: "We decouple them to achieve a clean Separation of Concerns and allow for isolated programmatic testing. Originally, requiring app.js instantly invoked the network listener via .listen(). When a testing framework like Jest imports that file, it triggers the server startup over and over, resulting in an EADDRINUSE port collision error. By moving the .listen() execution logic to a separate entry point (server.js), we can import the core application logic into Jest for testing without spinning up actual network connections."
+
+2. The Dependency Manifest Question
+Interview Question: "What is the role of package.json in a Node.js CI/CD workflow?"
+
+How to Answer: "The package.json file serves as the definitive project manifest and dependency blueprint. It records the metadata, operational scripts (like start and test), and exact versions of third-party frameworks like Jest. This allows us to omit the heavy node_modules folder from our repository. When our CI/CD platform executes, it reads this manifest and runs npm install to seamlessly recreate an identical, isolated environment in the cloud before testing or deploying."
