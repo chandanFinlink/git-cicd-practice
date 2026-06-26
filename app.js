@@ -12,17 +12,14 @@ const server = http.createServer((req, res) => {
     const reversed = reverseString(textToReverse);
 
     res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-    // res.end(`
-    //     <h1>String Reversal Service</h1>
-    //     <p>Original: <b>${textToReverse}</b></p>
-    //     <p>Reversed: <b>${reversed}</b></p>
-    // `);
-
+  
+    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
     res.end(`
-    <h1>🚀 Chandan's Advanced String Reversal Service 🚀</h1>
-    <p>Original: <b>${textToReverse}</b></p>
-    <p>Reversed: <b>${reversed}</b></p>
-`);
+        <h1>🚀 Chandan's Advanced String Reversal Service 🚀</h1>
+        <p>Original: <b>${textToReverse}</b></p>
+        <p>Reversed: <b>${reversed}</b></p>
+        <p>Current Time: <b>${new Date().toLocaleString()}</b></p>
+    `);
 });
 
 // Use the port provided by the cloud platform, or default to 3000
