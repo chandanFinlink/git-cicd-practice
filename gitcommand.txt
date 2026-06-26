@@ -1,0 +1,2 @@
+//# 1. Force Git to remove node_modules from its tracking list (cache)
+1.git rm -r --cached node_modules

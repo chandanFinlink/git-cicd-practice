@@ -1,11 +1,10 @@
-const reverseString = require('./app');
+// Destructure reverseString from our exported object
+const { reverseString } = require('./app');
 
-console.log("Running test: reverseString('hello')...");
+test('properly reverses a standard string', () => {
+    expect(reverseString('hello')).toBe('olleh');
+});
 
-if (reverseString('hello') === 'olleh') {
-    console.log("✅ TEST PASSED");
-    process.exit(0); 
-} else {
-    console.error("❌ TEST FAILED");
-    process.exit(1); 
-}
+test('handles an empty string gracefully', () => {
+    expect(reverseString('')).toBe('');
+});

@@ -19,9 +19,5 @@ const server = http.createServer((req, res) => {
     `);
 });
 
-const PORT = process.env.PORT || 3000;
-server.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-});
-
-module.exports = reverseString;
+// We ONLY export our modules now. We do NOT start the listener here!
+module.exports = { reverseString, server };

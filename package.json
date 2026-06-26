@@ -1,0 +1,25 @@
+{
+  "name": "git-cicd-practice",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "jest",
+    "start": "node app.js"  
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chandanFinlink/git-cicd-practice.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/chandanFinlink/git-cicd-practice/issues"
+  },
+  "homepage": "https://github.com/chandanFinlink/git-cicd-practice#readme",
+  "devDependencies": {
+    "jest": "^30.4.2"
+  }
+}
