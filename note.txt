@@ -64,3 +64,8 @@ How to Answer: "We decouple them to achieve a clean Separation of Concerns and a
 Interview Question: "What is the role of package.json in a Node.js CI/CD workflow?"
 
 How to Answer: "The package.json file serves as the definitive project manifest and dependency blueprint. It records the metadata, operational scripts (like start and test), and exact versions of third-party frameworks like Jest. This allows us to omit the heavy node_modules folder from our repository. When our CI/CD platform executes, it reads this manifest and runs npm install to seamlessly recreate an identical, isolated environment in the cloud before testing or deploying."
+
+
+Interview Question: "What is the difference between git revert and git reset, and when would you use each?"
+
+How to Answer: "git reset alters repository history by moving the branch pointer backward to a previous commit, discarding the commits ahead of it. It should typically only be used on local, unpushed branches. git revert, on the other hand, is a safe operation for public or shared branches. It creates a brand-new commit that applies the exact inverse changes of a targeted faulty commit, maintaining an accurate chronological history record without disrupting team synchronization."

@@ -1,2 +1,44 @@
 //# 1. Force Git to remove node_modules from its tracking list (cache)
 1.git rm -r --cached node_modules
+
+
+To see a clean, graphical timeline of your commits, branch splits, and merges directly in your terminal, run this optimized log command
+2.git log --oneline --graph --decorate --all
+
+See Details of a Specific Commit
+If you want to look inside a specific commit to see exactly which lines of code were added or deleted, use git show followed by the Commit ID:
+
+Bash
+git show 8a14161
+
+Compare Differences (Before Pushing)
+If you've edited files locally and want to see what changed compared to your last commit before you run git add, type:
+
+Bash
+git diff
+
+2. Reverting Pushed Code (Undoing Mistakes Safely)
+If you pushed code to GitHub and it broke your Render deployment, you have two primary ways to undo it. In a shared team environment, Method A is the industry gold standard because it doesn't rewrite history.
+
+Method A: git revert (The Safe, Professional Way)
+Instead of deleting the bad commit from history, git revert takes the exact opposite of your changes and creates a brand-new commit on top to cancel it out. This ensures your team members don't get sync errors.
+
+Bash
+# 1. Revert the bad commit by targeting its ID
+git revert 8a14161
+
+# 2. A text editor might pop up asking for a commit message. Save and close it.
+# 3. Push the new "undo" commit to the cloud
+git push origin main
+Your GitHub Actions pipeline will run, Render will see the revert commit, and your server will automatically roll back to the working version safely!
+
+Method B: git reset --hard (The Destructive Way)
+Use this only if you are the only one working on the branch, because it completely obliterates commits as if they never existed.
+
+Bash
+# Move your local branch history backwards to a specific working commit ID
+git reset --hard 3863d8c
+
+# Because your local history is now BEHIND GitHub, a normal push will be rejected.
+# You must force-overwrite the cloud repository:
+git push origin main --force
