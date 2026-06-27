@@ -5,6 +5,9 @@
 To see a clean, graphical timeline of your commits, branch splits, and merges directly in your terminal, run this optimized log command
 2.git log --oneline --graph --decorate --all
 
+git log --oneline // to see all git pushed logs
+
+
 See Details of a Specific Commit
 If you want to look inside a specific commit to see exactly which lines of code were added or deleted, use git show followed by the Commit ID:
 
@@ -42,3 +45,16 @@ git reset --hard 3863d8c
 # Because your local history is now BEHIND GitHub, a normal push will be rejected.
 # You must force-overwrite the cloud repository:
 git push origin main --force
+
+Now, tell Git to create a brand-new commit that reverses everything inside that bad commit:
+
+Bash
+git revert a1b2c3d
+(Replace a1b2c3d with the actual Commit ID from your terminal log).
+
+📝 Note on the Text Editor Pop-up:
+When you run this, Git will automatically open a text editor inside your terminal window (usually a tool called Vim or Nano) asking you to confirm the commit message.
+
+If it opens Vim (you'll see columns of ~ marks), type :wq and hit Enter to save and exit.
+
+If it opens Nano (you'll see command options at the bottom), press Ctrl + O then Enter to save, and Ctrl + X to exit.
