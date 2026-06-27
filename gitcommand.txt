@@ -42,6 +42,3 @@ git reset --hard 3863d8c
 # Because your local history is now BEHIND GitHub, a normal push will be rejected.
 # You must force-overwrite the cloud repository:
 git push origin main --force
-
-# Delete the local experiment branch now that it's merged
-git branch -d conflict-lab
